@@ -1,13 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
+import AppLayout from './components/layout/AppLayout'
+import LandingPage from './pages/LandingPage'
 import PlaceholderPage from './pages/PlaceholderPage'
 import type { AppRouteDefinition } from './types/routes'
 
-const appRoutes = [
-  {
-    path: '/',
-    title: 'Landing Page',
-    description: 'The public introduction to Laundry Republic.',
-  },
+const managementRoutes = [
   {
     path: '/dashboard',
     title: 'Dashboard',
@@ -83,18 +80,21 @@ const appRoutes = [
 function App() {
   return (
     <Routes>
-      {appRoutes.map((route) => (
-        <Route
-          key={route.path}
-          path={route.path}
-          element={
-            <PlaceholderPage
-              title={route.title}
-              description={route.description}
-            />
-          }
-        />
-      ))}
+      <Route path="/" element={<LandingPage />} />
+      <Route element={<AppLayout />}>
+        {managementRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PlaceholderPage
+                title={route.title}
+                description={route.description}
+              />
+            }
+          />
+        ))}
+      </Route>
     </Routes>
   )
 }
