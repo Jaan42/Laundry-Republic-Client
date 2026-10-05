@@ -1,31 +1,15 @@
 import { Route, Routes } from 'react-router-dom'
 import AppLayout from './components/layout/AppLayout'
+import CustomerCreatePage from './pages/CustomerCreatePage'
+import CustomerDetailsPage from './pages/CustomerDetailsPage'
+import CustomerEditPage from './pages/CustomerEditPage'
+import CustomersPage from './pages/CustomersPage'
 import DashboardPage from './pages/DashboardPage'
 import LandingPage from './pages/LandingPage'
 import PlaceholderPage from './pages/PlaceholderPage'
 import type { AppRouteDefinition } from './types/routes'
 
 const placeholderRoutes = [
-  {
-    path: '/customers',
-    title: 'Customers',
-    description: 'Customer records will be managed here.',
-  },
-  {
-    path: '/customers/new',
-    title: 'New Customer',
-    description: 'The customer creation form will be built here.',
-  },
-  {
-    path: '/customers/:id',
-    title: 'Customer Details',
-    description: 'A selected customer record will be displayed here.',
-  },
-  {
-    path: '/customers/:id/edit',
-    title: 'Edit Customer',
-    description: 'The customer editing form will be built here.',
-  },
   {
     path: '/services',
     title: 'Services',
@@ -79,6 +63,10 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route element={<AppLayout />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/customers" element={<CustomersPage />} />
+        <Route path="/customers/new" element={<CustomerCreatePage />} />
+        <Route path="/customers/:id" element={<CustomerDetailsPage />} />
+        <Route path="/customers/:id/edit" element={<CustomerEditPage />} />
         {placeholderRoutes.map((route) => (
           <Route
             key={route.path}
