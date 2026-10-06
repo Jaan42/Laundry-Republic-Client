@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import AppLayout from './components/layout/AppLayout'
+import CreateOrderPage from './pages/CreateOrderPage'
 import CustomerCreatePage from './pages/CustomerCreatePage'
 import CustomerDetailsPage from './pages/CustomerDetailsPage'
 import CustomerEditPage from './pages/CustomerEditPage'
@@ -20,11 +21,6 @@ const placeholderRoutes = [
     path: '/orders',
     title: 'Orders',
     description: 'Laundry orders will be managed here.',
-  },
-  {
-    path: '/orders/new',
-    title: 'Create Order',
-    description: 'The order builder will be created here.',
   },
   {
     path: '/orders/:id',
@@ -59,6 +55,7 @@ function App() {
         <Route path="/promotions" element={<PromotionsPage />} />
         <Route path="/promotions/new" element={<PromotionCreatePage />} />
         <Route path="/promotions/:id/edit" element={<PromotionEditPage />} />
+        <Route path="/orders/new" element={<CreateOrderPage />} />
         {placeholderRoutes.map((route) => (
           <Route
             key={route.path}
