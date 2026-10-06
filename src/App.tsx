@@ -7,6 +7,9 @@ import CustomersPage from './pages/CustomersPage'
 import DashboardPage from './pages/DashboardPage'
 import LandingPage from './pages/LandingPage'
 import PlaceholderPage from './pages/PlaceholderPage'
+import PromotionCreatePage from './pages/PromotionCreatePage'
+import PromotionEditPage from './pages/PromotionEditPage'
+import PromotionsPage from './pages/PromotionsPage'
 import ServiceCreatePage from './pages/ServiceCreatePage'
 import ServiceEditPage from './pages/ServiceEditPage'
 import ServicesPage from './pages/ServicesPage'
@@ -34,11 +37,6 @@ const placeholderRoutes = [
     description: 'The order editing experience will be built here.',
   },
   {
-    path: '/promotions',
-    title: 'Promotions',
-    description: 'Promotions will be managed here.',
-  },
-  {
     path: '/reports',
     title: 'Reports',
     description: 'Business reports will be displayed here.',
@@ -58,6 +56,9 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/new" element={<ServiceCreatePage />} />
         <Route path="/services/:id/edit" element={<ServiceEditPage />} />
+        <Route path="/promotions" element={<PromotionsPage />} />
+        <Route path="/promotions/new" element={<PromotionCreatePage />} />
+        <Route path="/promotions/:id/edit" element={<PromotionEditPage />} />
         {placeholderRoutes.map((route) => (
           <Route
             key={route.path}
