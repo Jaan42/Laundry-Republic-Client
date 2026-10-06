@@ -29,7 +29,7 @@ const initialServiceState: ServiceOptionsState = {
   isLoadingServices: true,
 }
 
-function useOrderOptions() {
+function useOrderOptions(activeServicesOnly = true) {
   const [customerState, setCustomerState] =
     useState<CustomerOptionsState>(initialCustomerState)
   const [serviceState, setServiceState] =
@@ -64,7 +64,7 @@ function useOrderOptions() {
   useEffect(() => {
     const controller = new AbortController()
 
-    getServices({ active: true }, controller.signal)
+    getServices(activeServicesOnly ? { active: true } : {}, controller.signal)
       .then((services) => {
         setServiceState({
           services,
@@ -83,7 +83,7 @@ function useOrderOptions() {
       })
 
     return () => controller.abort()
-  }, [serviceRequestNumber])
+  }, [activeServicesOnly, serviceRequestNumber])
 
   const retryCustomers = useCallback(() => {
     setCustomerState(initialCustomerState)

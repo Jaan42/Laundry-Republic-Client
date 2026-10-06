@@ -356,8 +356,12 @@ function OrderForm({ customers, services, onCreate }: OrderFormProps) {
                     index={index}
                     services={services}
                     selectedService={selectedService}
-                    errors={errors.items?.[index]}
-                    register={register}
+                    serviceError={errors.items?.[index]?.serviceId?.message}
+                    serviceRegistration={register(`items.${index}.serviceId`)}
+                    quantityError={errors.items?.[index]?.quantity?.message}
+                    quantityRegistration={register(`items.${index}.quantity`, {
+                      valueAsNumber: true,
+                    })}
                     canRemove={fields.length > 1}
                     disabled={isBusy}
                     onRemove={() => remove(index)}

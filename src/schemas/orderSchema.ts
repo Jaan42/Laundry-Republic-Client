@@ -22,3 +22,15 @@ export const createOrderSchema = z.object({
 })
 
 export type CreateOrderFormValues = z.infer<typeof createOrderSchema>
+
+export const editOrderSchema = createOrderSchema.extend({
+  orderDate: z
+    .string()
+    .min(1, 'Select an order date')
+    .refine(
+      (value) => !Number.isNaN(new Date(`${value}T00:00:00`).getTime()),
+      'Enter a valid order date',
+    ),
+})
+
+export type EditOrderFormValues = z.infer<typeof editOrderSchema>

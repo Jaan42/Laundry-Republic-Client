@@ -7,6 +7,9 @@ import CustomerEditPage from './pages/CustomerEditPage'
 import CustomersPage from './pages/CustomersPage'
 import DashboardPage from './pages/DashboardPage'
 import LandingPage from './pages/LandingPage'
+import OrderDetailsPage from './pages/OrderDetailsPage'
+import OrderEditPage from './pages/OrderEditPage'
+import OrdersPage from './pages/OrdersPage'
 import PlaceholderPage from './pages/PlaceholderPage'
 import PromotionCreatePage from './pages/PromotionCreatePage'
 import PromotionEditPage from './pages/PromotionEditPage'
@@ -17,21 +20,6 @@ import ServicesPage from './pages/ServicesPage'
 import type { AppRouteDefinition } from './types/routes'
 
 const placeholderRoutes = [
-  {
-    path: '/orders',
-    title: 'Orders',
-    description: 'Laundry orders will be managed here.',
-  },
-  {
-    path: '/orders/:id',
-    title: 'Order Details',
-    description: 'A selected order will be displayed here.',
-  },
-  {
-    path: '/orders/:id/edit',
-    title: 'Edit Order',
-    description: 'The order editing experience will be built here.',
-  },
   {
     path: '/reports',
     title: 'Reports',
@@ -55,7 +43,10 @@ function App() {
         <Route path="/promotions" element={<PromotionsPage />} />
         <Route path="/promotions/new" element={<PromotionCreatePage />} />
         <Route path="/promotions/:id/edit" element={<PromotionEditPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
         <Route path="/orders/new" element={<CreateOrderPage />} />
+        <Route path="/orders/:id" element={<OrderDetailsPage />} />
+        <Route path="/orders/:id/edit" element={<OrderEditPage />} />
         {placeholderRoutes.map((route) => (
           <Route
             key={route.path}

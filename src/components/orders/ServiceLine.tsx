@@ -1,14 +1,15 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form'
+import type { UseFormRegisterReturn } from 'react-hook-form'
 import Input from '../ui/Input'
-import type { CreateOrderFormValues } from '../../schemas/orderSchema'
 import type { LaundryService, PricingType } from '../../types/service'
 
 interface ServiceLineProps {
   index: number
   services: LaundryService[]
   selectedService?: LaundryService
-  errors?: FieldErrors<CreateOrderFormValues['items'][number]>
-  register: UseFormRegister<CreateOrderFormValues>
+  serviceError?: string
+  serviceRegistration: UseFormRegisterReturn
+  quantityError?: string
+  quantityRegistration: UseFormRegisterReturn
   canRemove: boolean
   disabled: boolean
   onRemove: () => void
@@ -34,8 +35,10 @@ function ServiceLine({
   index,
   services,
   selectedService,
-  errors,
-  register,
+  serviceError,
+  serviceRegistration,
+  quantityError,
+  quantityRegistration,
   canRemove,
   disabled,
   onRemove,
@@ -68,9 +71,9 @@ function ServiceLine({
             id={`items-${index}-serviceId`}
             className={selectClassName}
             disabled={disabled}
-            aria-invalid={Boolean(errors?.serviceId)}
-            aria-describedby={errors?.serviceId ? serviceErrorId : undefined}
-            {...register(`items.${index}.serviceId`)}
+            aria-invalid={Boolean(serviceError)}
+            aria-describedby={serviceError ? serviceErrorId : undefined}
+            {...serviceRegistration}
           >
             <option value="">Select a service</option>
             {services.map((service) => (
@@ -79,9 +82,9 @@ function ServiceLine({
               </option>
             ))}
           </select>
-          {errors?.serviceId?.message && (
+          {serviceError && (
             <p id={serviceErrorId} className="mt-1.5 text-sm font-medium text-rose-600">
-              {errors.serviceId.message}
+              {serviceError}
             </p>
           )}
           {selectedService && (
@@ -103,13 +106,13 @@ function ServiceLine({
             inputMode="decimal"
             className="mt-2"
             disabled={disabled}
-            aria-invalid={Boolean(errors?.quantity)}
-            aria-describedby={errors?.quantity ? quantityErrorId : undefined}
-            {...register(`items.${index}.quantity`, { valueAsNumber: true })}
+            aria-invalid={Boolean(quantityError)}
+            aria-describedby={quantityError ? quantityErrorId : undefined}
+            {...quantityRegistration}
           />
-          {errors?.quantity?.message && (
+          {quantityError && (
             <p id={quantityErrorId} className="mt-1.5 text-sm font-medium text-rose-600">
-              {errors.quantity.message}
+              {quantityError}
             </p>
           )}
         </div>
