@@ -7,24 +7,12 @@ import CustomersPage from './pages/CustomersPage'
 import DashboardPage from './pages/DashboardPage'
 import LandingPage from './pages/LandingPage'
 import PlaceholderPage from './pages/PlaceholderPage'
+import ServiceCreatePage from './pages/ServiceCreatePage'
+import ServiceEditPage from './pages/ServiceEditPage'
+import ServicesPage from './pages/ServicesPage'
 import type { AppRouteDefinition } from './types/routes'
 
 const placeholderRoutes = [
-  {
-    path: '/services',
-    title: 'Services',
-    description: 'Laundry services will be managed here.',
-  },
-  {
-    path: '/services/new',
-    title: 'New Service',
-    description: 'The service creation form will be built here.',
-  },
-  {
-    path: '/services/:id/edit',
-    title: 'Edit Service',
-    description: 'The service editing form will be built here.',
-  },
   {
     path: '/orders',
     title: 'Orders',
@@ -67,6 +55,9 @@ function App() {
         <Route path="/customers/new" element={<CustomerCreatePage />} />
         <Route path="/customers/:id" element={<CustomerDetailsPage />} />
         <Route path="/customers/:id/edit" element={<CustomerEditPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/new" element={<ServiceCreatePage />} />
+        <Route path="/services/:id/edit" element={<ServiceEditPage />} />
         {placeholderRoutes.map((route) => (
           <Route
             key={route.path}
