@@ -5,8 +5,7 @@ import OrderSummaryCard from '../components/dashboard/OrderSummaryCard'
 import PopularServicesList from '../components/dashboard/PopularServicesList'
 import PageContainer from '../components/layout/PageContainer'
 import PageHeader from '../components/layout/PageHeader'
-import Button from '../components/ui/Button'
-import Card from '../components/ui/Card'
+import ApiErrorState from '../components/ui/ApiErrorState'
 import EmptyState from '../components/ui/EmptyState'
 import useDashboard from '../hooks/useDashboard'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -94,20 +93,12 @@ function DashboardPage() {
           title="Dashboard"
           description="A live view of orders, customer activity, and service demand."
         />
-        <Card className="border-rose-200 bg-rose-50/60 p-6" role="alert">
-          <p className="text-sm font-bold uppercase tracking-[0.14em] text-rose-700">
-            Dashboard unavailable
-          </p>
-          <h2 className="mt-2 text-xl font-bold text-slate-950">
-            We could not load the latest business information.
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-            {error || 'The dashboard response was empty.'}
-          </p>
-          <Button className="mt-5" onClick={retry}>
-            Try again
-          </Button>
-        </Card>
+        <ApiErrorState
+          label="Dashboard unavailable"
+          title="We could not load the latest business information."
+          message={error || 'The dashboard response was empty.'}
+          onRetry={retry}
+        />
       </PageContainer>
     )
   }

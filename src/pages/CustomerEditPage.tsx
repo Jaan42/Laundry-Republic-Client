@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import CustomerForm from '../components/customers/CustomerForm'
 import PageContainer from '../components/layout/PageContainer'
 import PageHeader from '../components/layout/PageHeader'
-import Button from '../components/ui/Button'
+import ApiErrorState from '../components/ui/ApiErrorState'
 import Card from '../components/ui/Card'
 import useCustomer from '../hooks/useCustomer'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -34,23 +34,20 @@ function CustomerEditPage() {
     return (
       <PageContainer>
         <PageHeader title="Edit Customer" description="Update a customer record." />
-        <Card className="max-w-3xl border-rose-200 bg-rose-50/60 p-6" role="alert">
-          <p className="text-sm font-bold uppercase tracking-[0.14em] text-rose-700">
-            Customer unavailable
-          </p>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            {error || 'The customer response was empty.'}
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Button onClick={retry}>Try again</Button>
+        <ApiErrorState
+          className="max-w-3xl"
+          label="Customer unavailable"
+          message={error || 'The customer response was empty.'}
+          onRetry={retry}
+          secondaryAction={
             <Link
               to="/customers"
               className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
             >
               Back to Customers
             </Link>
-          </div>
-        </Card>
+          }
+        />
       </PageContainer>
     )
   }

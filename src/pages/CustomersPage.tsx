@@ -4,6 +4,7 @@ import CustomerList from '../components/customers/CustomerList'
 import DeleteCustomerDialog from '../components/customers/DeleteCustomerDialog'
 import PageContainer from '../components/layout/PageContainer'
 import PageHeader from '../components/layout/PageHeader'
+import ApiErrorState from '../components/ui/ApiErrorState'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import EmptyState from '../components/ui/EmptyState'
@@ -102,7 +103,11 @@ function CustomersPage() {
       />
 
       {successMessage && (
-        <FeedbackBanner message={successMessage} onDismiss={() => setSuccessMessage(null)} />
+        <FeedbackBanner
+          className="mb-6"
+          message={successMessage}
+          onDismiss={() => setSuccessMessage(null)}
+        />
       )}
 
       <Card className="mb-6 border-slate-200 p-4 sm:p-5">
@@ -145,15 +150,11 @@ function CustomersPage() {
       {isLoading ? (
         <CustomerListSkeleton />
       ) : error ? (
-        <Card className="border-rose-200 bg-rose-50/60 p-6" role="alert">
-          <p className="text-sm font-bold uppercase tracking-[0.14em] text-rose-700">
-            Customers unavailable
-          </p>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{error}</p>
-          <Button className="mt-5" onClick={retry}>
-            Try again
-          </Button>
-        </Card>
+        <ApiErrorState
+          label="Customers unavailable"
+          message={error}
+          onRetry={retry}
+        />
       ) : customers.length === 0 ? (
         <EmptyState
           title={activeSearch ? 'No search results' : 'No customers yet'}

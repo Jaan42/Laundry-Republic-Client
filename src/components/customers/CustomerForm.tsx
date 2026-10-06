@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import Button from '../ui/Button'
+import FeedbackBanner from '../ui/FeedbackBanner'
 import Input from '../ui/Input'
 import { customerSchema } from '../../schemas/customerSchema'
 import type { CustomerFormValues } from '../../schemas/customerSchema'
@@ -65,9 +66,11 @@ function CustomerForm({ defaultValues, onSubmit, submitLabel }: CustomerFormProp
   return (
     <form onSubmit={handleSubmit(submitCustomer)} noValidate className="space-y-6">
       {apiError && (
-        <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3" role="alert">
-          <p className="text-sm font-semibold text-rose-700">{apiError}</p>
-        </div>
+        <FeedbackBanner
+          message={apiError}
+          onDismiss={() => setApiError(null)}
+          tone="error"
+        />
       )}
 
       <div className="grid gap-5 sm:grid-cols-2">

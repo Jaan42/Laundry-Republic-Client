@@ -20,14 +20,32 @@ const customerFields = new Set<CustomerField>([
   'address',
 ])
 
+function isCustomer(value: unknown): value is Customer {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    '_id' in value &&
+    typeof value._id === 'string' &&
+    value._id.trim().length > 0
+  )
+}
+
+function parseCustomer(value: unknown, errorMessage: string) {
+  if (!isCustomer(value)) {
+    throw new Error(errorMessage)
+  }
+
+  return value
+}
+
 export async function getCustomers(search = '', signal?: AbortSignal) {
   const normalizedSearch = search.trim()
-  const response = await api.get<Customer[]>('/customers', {
+  const response = await api.get<unknown>('/customers', {
     params: normalizedSearch ? { search: normalizedSearch } : undefined,
     signal,
   })
 
-  if (!Array.isArray(response.data)) {
+  if (!Array.isArray(response.data) || !response.data.every(isCustomer)) {
     throw new Error('The customer list response was not valid.')
   }
 
@@ -35,23 +53,18 @@ export async function getCustomers(search = '', signal?: AbortSignal) {
 }
 
 export async function getCustomer(customerId: string, signal?: AbortSignal) {
-  const response = await api.get<Customer>(`/customers/${customerId}`, { signal })
-
-  if (!response.data || typeof response.data !== 'object' || !response.data._id) {
-    throw new Error('The customer response was not valid.')
-  }
-
-  return response.data
+  const response = await api.get<unknown>(`/customers/${customerId}`, { signal })
+  return parseCustomer(response.data, 'The customer response was not valid.')
 }
 
 export async function createCustomer(payload: CustomerPayload) {
-  const response = await api.post<Customer>('/customers', payload)
-  return response.data
+  const response = await api.post<unknown>('/customers', payload)
+  return parseCustomer(response.data, 'The created customer response was not valid.')
 }
 
 export async function updateCustomer(customerId: string, payload: CustomerPayload) {
-  const response = await api.put<Customer>(`/customers/${customerId}`, payload)
-  return response.data
+  const response = await api.put<unknown>(`/customers/${customerId}`, payload)
+  return parseCustomer(response.data, 'The updated customer response was not valid.')
 }
 
 export async function deleteCustomer(customerId: string) {

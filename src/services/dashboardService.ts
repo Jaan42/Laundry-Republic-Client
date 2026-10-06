@@ -11,25 +11,52 @@ interface ApiErrorResponse {
   message?: string
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+function hasStableId(value: unknown) {
+  return (
+    isRecord(value) &&
+    typeof value._id === 'string' &&
+    value._id.trim().length > 0
+  )
+}
+
+function isDashboardOrder(value: unknown): value is DashboardOrder {
+  return hasStableId(value)
+}
+
+function isDashboardStatistics(value: unknown): value is DashboardStatistics {
+  return isRecord(value)
+}
+
+function isPopularService(value: unknown): value is PopularService {
+  return isRecord(value) && hasStableId(value.service)
+}
+
 export async function getDashboardData(signal?: AbortSignal): Promise<DashboardData> {
   const [statisticsResponse, ordersResponse, popularServicesResponse] = await Promise.all([
-    api.get<DashboardStatistics>('/orders/statistics', { signal }),
-    api.get<DashboardOrder[]>('/orders', {
+    api.get<unknown>('/orders/statistics', { signal }),
+    api.get<unknown>('/orders', {
       params: { sort: 'newest' },
       signal,
     }),
-    api.get<PopularService[]>('/orders/popular-services', { signal }),
+    api.get<unknown>('/orders/popular-services', { signal }),
   ])
 
-  if (!statisticsResponse.data || typeof statisticsResponse.data !== 'object') {
+  if (!isDashboardStatistics(statisticsResponse.data)) {
     throw new Error('The statistics response was not valid.')
   }
 
-  if (!Array.isArray(ordersResponse.data)) {
+  if (!Array.isArray(ordersResponse.data) || !ordersResponse.data.every(isDashboardOrder)) {
     throw new Error('The orders response was not valid.')
   }
 
-  if (!Array.isArray(popularServicesResponse.data)) {
+  if (
+    !Array.isArray(popularServicesResponse.data) ||
+    !popularServicesResponse.data.every(isPopularService)
+  ) {
     throw new Error('The popular services response was not valid.')
   }
 

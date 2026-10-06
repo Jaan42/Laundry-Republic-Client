@@ -38,7 +38,12 @@ function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 z-50 lg:hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Management navigation menu"
+    >
       <button
         type="button"
         className="absolute inset-0 cursor-default bg-slate-950/45 backdrop-blur-[2px]"
@@ -53,7 +58,7 @@ function MobileNavigation({ isOpen, onClose }: MobileNavigationProps) {
             ref={closeButtonRef}
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-2xl leading-none text-slate-600 transition hover:bg-slate-50 hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-2xl leading-none text-slate-600 transition hover:bg-slate-50 hover:text-slate-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
             aria-label="Close navigation menu"
           >
             <span aria-hidden="true">&times;</span>

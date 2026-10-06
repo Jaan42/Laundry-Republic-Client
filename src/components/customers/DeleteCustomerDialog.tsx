@@ -1,4 +1,5 @@
 import Button from '../ui/Button'
+import FeedbackBanner from '../ui/FeedbackBanner'
 import type { Customer } from '../../types/customer'
 
 interface DeleteCustomerDialogProps {
@@ -42,9 +43,7 @@ function DeleteCustomerDialog({
         </p>
 
         {error && (
-          <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3" role="alert">
-            <p className="text-sm font-semibold text-rose-700">{error}</p>
-          </div>
+          <FeedbackBanner className="mt-4" message={error} tone="error" />
         )}
 
         <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
