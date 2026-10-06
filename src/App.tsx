@@ -10,22 +10,13 @@ import LandingPage from './pages/LandingPage'
 import OrderDetailsPage from './pages/OrderDetailsPage'
 import OrderEditPage from './pages/OrderEditPage'
 import OrdersPage from './pages/OrdersPage'
-import PlaceholderPage from './pages/PlaceholderPage'
 import PromotionCreatePage from './pages/PromotionCreatePage'
 import PromotionEditPage from './pages/PromotionEditPage'
 import PromotionsPage from './pages/PromotionsPage'
+import ReportsPage from './pages/ReportsPage'
 import ServiceCreatePage from './pages/ServiceCreatePage'
 import ServiceEditPage from './pages/ServiceEditPage'
 import ServicesPage from './pages/ServicesPage'
-import type { AppRouteDefinition } from './types/routes'
-
-const placeholderRoutes = [
-  {
-    path: '/reports',
-    title: 'Reports',
-    description: 'Business reports will be displayed here.',
-  },
-] satisfies AppRouteDefinition[]
 
 function App() {
   return (
@@ -47,18 +38,7 @@ function App() {
         <Route path="/orders/new" element={<CreateOrderPage />} />
         <Route path="/orders/:id" element={<OrderDetailsPage />} />
         <Route path="/orders/:id/edit" element={<OrderEditPage />} />
-        {placeholderRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={
-              <PlaceholderPage
-                title={route.title}
-                description={route.description}
-              />
-            }
-          />
-        ))}
+        <Route path="/reports" element={<ReportsPage />} />
       </Route>
     </Routes>
   )
