@@ -114,7 +114,6 @@ Invalid transitions are rejected by the server.
 
 ## Screenshots
 
-```markdown
 <img width="1901" height="971" alt="image" src="https://github.com/user-attachments/assets/b0b56c8e-d4ff-4bff-ba91-c46f17a36ead" />
 
 <img width="1917" height="967" alt="image" src="https://github.com/user-attachments/assets/cebdc37e-1a3a-4b54-ab1f-a2b8eaa55d9b" />
@@ -131,7 +130,7 @@ Invalid transitions are rejected by the server.
 
 <img width="1917" height="967" alt="image" src="https://github.com/user-attachments/assets/27302dfe-8eea-424d-a6c1-f7e0174dd488" />
 
-```
+
 
 ## Known Limitations
 
